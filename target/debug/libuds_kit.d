@@ -1,0 +1,1 @@
+/home/wyatt/dev/src/github.com/WyattAu/uds-kit/target/debug/libuds_kit.rlib: /home/wyatt/dev/src/github.com/WyattAu/uds-kit/target/package/uds-kit-0.1.0/src/error.rs /home/wyatt/dev/src/github.com/WyattAu/uds-kit/target/package/uds-kit-0.1.0/src/lib.rs
