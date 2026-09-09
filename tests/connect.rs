@@ -1,3 +1,6 @@
+// Test code: unwrap/expect are the idiomatic way to assert assumptions.
+#![allow(clippy::unwrap_used, clippy::expect_used)]
+
 //! Integration tests for [`uds_kit::connect`].
 
 #![cfg(unix)]
@@ -16,9 +19,7 @@ async fn connect_success_against_bound_listener() {
 
     let _listener = UnixListener::bind(&path).expect("bind");
 
-    let stream = connect(&path, SHORT)
-        .await
-        .expect("connect should succeed");
+    let stream = connect(&path, SHORT).await.expect("connect should succeed");
     assert_eq!(
         stream.peer_addr().expect("peer_addr").as_pathname(),
         Some(path.as_path()),
@@ -55,4 +56,3 @@ async fn connect_nonexistent_path_is_immediate_io_error() {
 // filesystem socket can stall a connect deterministically. On
 // kernels/filesystems where connect(2) does block (older kernels,
 // NFS-hosted sockets), that same mapping is what fires.
-

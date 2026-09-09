@@ -105,13 +105,11 @@ where
 /// The abandoned connect (if any) finishes on Tokio's blocking pool and is
 /// dropped there; it does not leak the socket.
 pub async fn connect(path: impl AsRef<Path>, timeout: Duration) -> Result<UnixStream, UdsError> {
-    bounded(
-        UnixStream::connect(path.as_ref()),
-        timeout,
-        || UdsError::ConnectTimeout {
+    bounded(UnixStream::connect(path.as_ref()), timeout, || {
+        UdsError::ConnectTimeout {
             path: path.as_ref().to_path_buf(),
-        },
-    )
+        }
+    })
     .await
 }
 
@@ -154,6 +152,8 @@ pub async fn write_all_with_timeout(
 }
 
 #[cfg(test)]
+// Test code: unwrap/expect are the idiomatic way to assert outcomes.
+#[allow(clippy::unwrap_used, clippy::expect_used)]
 mod tests {
     use super::*;
     use std::future::pending;

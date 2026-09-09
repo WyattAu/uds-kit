@@ -1,3 +1,6 @@
+// Test code: unwrap/expect are the idiomatic way to assert assumptions.
+#![allow(clippy::unwrap_used, clippy::expect_used)]
+
 //! Integration tests for [`uds_kit::read_with_timeout`] and
 //! [`uds_kit::write_all_with_timeout`], using connected socket pairs (no
 //! filesystem sockets needed).
@@ -52,6 +55,8 @@ async fn write_all_is_transparent_on_healthy_socket() {
     write_all_with_timeout(&mut a, b"frame-data", SHORT)
         .await
         .expect("write should succeed");
+
+    a.shutdown().await.expect("shutdown sends EOF");
 
     let mut buf = Vec::new();
     b.read_to_end(&mut buf).await.expect("peer read");
