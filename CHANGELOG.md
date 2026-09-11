@@ -5,5 +5,12 @@ Changelog](https://keepachangelog.com/) — versions follow [semver](https://sem
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-09-07
+
+### Added
+- Initial public release — timeout-bounded UDS connect/read/write for
+  Tokio.
+
+
 ### Added
 - Initial public release.

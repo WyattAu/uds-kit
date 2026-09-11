@@ -1,5 +1,9 @@
 # uds-kit
 
+[![docs.rs](https://docs.rs/uds-kit/badge.svg)](https://docs.rs/uds-kit)
+[![crates.io](https://img.shields.io/crates/v/uds-kit.svg)](https://crates.io/crates/uds-kit)
+[![License](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue.svg)](LICENSE)
+
 Timeout-aware Unix domain socket plumbing for Tokio.
 
 Two real-world call sites (a Firecracker API client and a ClamAV INSTREAM
