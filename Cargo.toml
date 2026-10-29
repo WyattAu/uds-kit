@@ -1,7 +1,7 @@
 [package]
 exclude = ["/target"]
 name = "uds-kit"
-version = "0.1.1"
+version = "1.0.0"
 edition = "2021"
 rust-version = "1.85"
 description = "Timeout-aware Unix domain socket connect/read/write helpers for Tokio: transport-only, protocol-agnostic"
