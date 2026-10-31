@@ -26,7 +26,7 @@ First 1.0. `uds-kit` carries production IPC; this release commits the timeout-aw
 ## [0.1.0] - 2026-09-07
 
 ### Added
-- Initial public release — timeout-bounded UDS connect/read/write for
+- Initial public release; timeout-bounded UDS connect/read/write for
   Tokio.
 
 

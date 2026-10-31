@@ -1,11 +1,11 @@
-# Requirements — uds-kit
+# Requirements: uds-kit
 
 Numbered, testable requirements. Every requirement maps to at least one named
 test; every security-relevant test cites at least one requirement.
 
 Scope note: `uds-kit` provides exactly three timeout-bounded primitives over
- Tokio `UnixStream` — `connect`, `read_with_timeout` (`read_to_end`), and
-`write_all_with_timeout` — plus the `UdsError` taxonomy. It is transport
+ Tokio `UnixStream`; `connect`, `read_with_timeout` (`read_to_end`), and
+`write_all_with_timeout`; plus the `UdsError` taxonomy. It is transport
 only: no protocol framing, no retries, no reconnect logic.
 
 ## Functional
@@ -15,7 +15,7 @@ only: no protocol framing, no retries, no reconnect logic.
 | REQ-UD-001 | `connect(path, timeout)` returns a connected `UnixStream` when a listener accepts within the deadline | MUST |
 | REQ-UD-002 | `read_with_timeout` reads until EOF and returns the accumulated bytes when the peer shuts down within the deadline | MUST |
 | REQ-UD-003 | `write_all_with_timeout` writes the entire payload to a healthy socket and returns byte count | MUST |
-| REQ-UD-004 | Each function enforces its own caller-supplied deadline; expiry surfaces as `UdsError::ConnectTimeout` / `ReadTimeout` / `WriteTimeout` respectively — never a hang | MUST |
+| REQ-UD-004 | Each function enforces its own caller-supplied deadline; expiry surfaces as `UdsError::ConnectTimeout` / `ReadTimeout` / `WriteTimeout` respectively; never a hang | MUST |
 | REQ-UD-005 | Large payloads complete within the write deadline (no arbitrary internal size cap) | SHOULD |
 | REQ-UD-006 | The crate compiles to an empty crate on non-Unix targets (`#![cfg(unix)]`) | SHOULD |
 
@@ -23,9 +23,9 @@ only: no protocol framing, no retries, no reconnect logic.
 
 | ID | Requirement | Priority |
 |----|-------------|----------|
-| REQ-UD-100 | Immediate OS-level connect failures (`ENOENT`, `ECONNREFUSED`, `EACCES`) surface as `UdsError::Io` without waiting for the deadline — a missing socket cannot be turned into a slow-loris-style stall by the caller's own timeout choice | MUST |
-| REQ-UD-101 | A peer that accepts but never responds produces `ReadTimeout`, not unbounded blocking — a wedged peer cannot pin the caller's task indefinitely | MUST |
-| REQ-UD-102 | A peer that stops draining produces `WriteTimeout`, not unbounded blocking — closing the write-side gap that motivated the crate | MUST |
+| REQ-UD-100 | Immediate OS-level connect failures (`ENOENT`, `ECONNREFUSED`, `EACCES`) surface as `UdsError::Io` without waiting for the deadline; a missing socket cannot be turned into a slow-loris-style stall by the caller's own timeout choice | MUST |
+| REQ-UD-101 | A peer that accepts but never responds produces `ReadTimeout`, not unbounded blocking; a wedged peer cannot pin the caller's task indefinitely | MUST |
+| REQ-UD-102 | A peer that stops draining produces `WriteTimeout`, not unbounded blocking; closing the write-side gap that motivated the crate | MUST |
 | REQ-UD-103 | No panic path exists on peer misbehavior: hostile peers (abrupt EOF, no EOF, dead listener) map to typed errors only | MUST |
 
 ## Robustness

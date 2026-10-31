@@ -8,18 +8,18 @@ Timeout-aware Unix domain socket plumbing for Tokio.
 
 Two real-world call sites (a Firecracker API client and a ClamAV INSTREAM
 scanner) each hand-rolled their own `tokio::time::timeout` wrappers around
-`UnixStream` operations — and both were **missing a write timeout**, a gap
+`UnixStream` operations; and both were **missing a write timeout**, a gap
 that silently left write-side hangs unprotected. This crate centralizes the
 pattern:
 
-- [`connect`] — `UnixStream::connect` bounded by a timeout; expiry is a typed
+- [`connect`]; `UnixStream::connect` bounded by a timeout; expiry is a typed
   `UdsError::ConnectTimeout { path }` (unlike a bare elapsed `Elapsed` error,
   you learn *which* socket timed out).
-- [`read_with_timeout`] — `read_to_end` bounded by a timeout.
-- [`write_all_with_timeout`] — `write_all` bounded by a timeout (the gap the
+- [`read_with_timeout`]; `read_to_end` bounded by a timeout.
+- [`write_all_with_timeout`]; `write_all` bounded by a timeout (the gap the
   hand-rolled wrappers never covered).
 
-**Transport only.** Callers keep their own protocol logic — request
+**Transport only.** Callers keep their own protocol logic; request
 formatting, HTTP framing, ClamAV chunked INSTREAM envelopes, length-prefixed
 messages. This crate does exactly one thing: bound the three primitive socket
 operations with deadlines and surface expiry as typed errors.
